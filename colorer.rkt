@@ -28,6 +28,8 @@
                     ['IDENT 'no-color]
                     ['NUMBER 'constant]
                     ['STRING 'string]
-                    [(string->symbol ",") 'no-color]
-                    [else 'hash-colon-keyword]))
+                    [else
+                        (if (symbol=? type (string->symbol ","))
+                            'no-color
+                            'hash-colon-keyword)]))
             (values val cat #f start end)]))
