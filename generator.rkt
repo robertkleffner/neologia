@@ -19,9 +19,10 @@
         [(list 'n-file (list 'n-config config ...) items ...)
          (define parts (append (get-with-default 'n-parts empty config) (list "???")))
          (define order (get-with-default 'n-order empty config))
+         (define out-filename (string-append (car (get-with-default 'n-output (list "generated") config)) ".md"))
          (displayln "Generating...")
          (flush-output)
-         (generate parts order (get-entries items parts))]))
+         (generate out-filename parts order (get-entries items parts))]))
 
 (define (get-with-default sym default items)
         (for/fold ([res default])
@@ -40,20 +41,20 @@
 
     (map make-entry stx))
 
-(define (generate parts order entries)
+(define (generate outfile parts order entries)
     (warn-duplicates entries)
     (warn-undefined parts entries)
     (define sorted (sort entries (curry lesseq-by-order? order) #:key entry-word))
-    (render parts sorted))
+    (render outfile parts sorted))
 
-(define (render parts words)
-    (define out (open-output-file "./generated.md" #:exists 'replace #:mode 'text))
+(define (render outfile parts words)
+    (define out (open-output-file outfile #:exists 'replace #:mode 'text))
     (render-title out "Dictionary")
     (displayln "" out)
     (map (curry render-entry out parts) words)
     (close-output-port out)
     
-    (displayln "Generated dictionary successfully, check 'generated.md' for the results."))
+    (displayln (string-append "Generated dictionary successfully, check '" outfile "' for the results.")))
 
 (define (render-entry out parts word)
     (define (get-group-display-name)

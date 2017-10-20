@@ -1,7 +1,6 @@
 #lang neologia
 
 Parts = noun, verb, conj
-
 Order = a, e, h, ī, j, o, s, sh, t, th
 
 > shaī : noun
@@ -17,8 +16,6 @@ Order = a, e, h, ī, j, o, s, sh, t, th
     1. "to rock"
 > ar : conj
     1. "or"
-> e : conj
-    1. "and"
 > īna : conj
     1. "no, not"
 > jun : idk
