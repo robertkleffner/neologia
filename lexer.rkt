@@ -8,7 +8,11 @@
         [(from/to "--" "\n") (token 'COMMENT lexeme #:skip? #t)]
         [(:or "Parts" "Order" ":" ">" "=" ",")
          (token lexeme lexeme)]
-        [(:seq (:+ numeric) "." (from/to "" "."))
-         (token 'DEFINITION lexeme)]))
+        [(:seq (:+ numeric) ".")
+         (token 'NUMBER lexeme)]
+        [(:seq alphabetic (:* (:or alphabetic "-")))
+         (token 'IDENT lexeme)]
+        [(from/to "\"" "\"")
+         (token 'STRING (substring lexeme 1 (sub1 (string-length lexeme))))]))
 
 (provide neologia-lexer)
