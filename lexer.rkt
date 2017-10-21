@@ -10,7 +10,7 @@
          (token lexeme lexeme)]
         [(:seq (:+ numeric) ".")
          (token 'NUMBER lexeme)]
-        [(:seq alphabetic (:* (:or alphabetic "-")))
+        [(:seq alphabetic (:* (:or alphabetic "-" "'")))
          (token 'IDENT lexeme)]
         [(from/to "\"" "\"")
          (token 'STRING (substring lexeme 1 (sub1 (string-length lexeme))))]))

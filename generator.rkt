@@ -42,6 +42,9 @@
     (map make-entry stx))
 
 (define (generate outfile parts order entries)
+    (when (string-contains? outfile "'")
+        (error 'generate "Output filename cannot contain an apostrophe"))
+
     (warn-duplicates entries)
     (warn-undefined parts entries)
     (define sorted (sort entries (curry lesseq-by-order? order) #:key entry-word))
