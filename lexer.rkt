@@ -6,7 +6,7 @@
         [(eof) (return-without-srcloc eof)]
         [whitespace (token 'WS lexeme #:skip? #t)]
         [(from/to "--" "\n") (token 'COMMENT lexeme #:skip? #t)]
-        [(:or "Parts" "Order" "Output" ":" ">" "=" ",")
+        [(:or "Parts" "Order" "File" "Path" ":" ">" "=" ",")
          (token lexeme lexeme)]
         [(:seq (:+ numeric) ".")
          (token 'NUMBER lexeme)]

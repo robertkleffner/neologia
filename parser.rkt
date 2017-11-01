@@ -1,11 +1,12 @@
 #lang brag
 
-n-file : n-config n-entry*
+n-top : n-config n-entry*
 
-n-config : (n-parts | n-order | n-output)*
+n-config : (n-parts | n-order | n-file | n-path)*
 n-parts : /"Parts" /"=" IDENT (/"," IDENT)*
 n-order : /"Order" /"=" IDENT (/"," IDENT)*
-n-output : /"Output" /"=" IDENT
+n-path : /"Path" /"=" STRING
+n-file : /"File" /"=" STRING
 
 n-entry : /">" IDENT /":" IDENT n-definition+
 @n-definition : /NUMBER STRING

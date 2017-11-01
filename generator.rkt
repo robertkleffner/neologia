@@ -16,13 +16,14 @@
 
 (define (interpret stx)
     (match stx
-        [(list 'n-file (list 'n-config config ...) items ...)
+        [(list 'n-top (list 'n-config config ...) items ...)
          (define parts (append (get-with-default 'n-parts empty config) (list "???")))
          (define order (get-with-default 'n-order empty config))
-         (define out-filename (string-append (car (get-with-default 'n-output (list "generated") config)) ".md"))
+         (define out-pathname (car (get-with-default 'n-path (list (path->string (current-directory))) config)))
+         (define out-filename (string-append (car (get-with-default 'n-file (list "generated") config)) ".md"))
          (displayln "Generating...")
          (flush-output)
-         (generate out-filename parts order (get-entries items parts))]))
+         (generate (string-append out-pathname out-filename) parts order (get-entries items parts))]))
 
 (define (get-with-default sym default items)
         (for/fold ([res default])
@@ -42,9 +43,6 @@
     (map make-entry stx))
 
 (define (generate outfile parts order entries)
-    (when (string-contains? outfile "'")
-        (error 'generate "Output filename cannot contain an apostrophe"))
-
     (warn-duplicates entries)
     (warn-undefined parts entries)
     (define sorted (sort entries (curry lesseq-by-order? order) #:key entry-word))
