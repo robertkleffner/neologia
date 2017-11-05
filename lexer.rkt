@@ -12,6 +12,8 @@
          (token 'NUMBER lexeme)]
         [(:seq alphabetic (:* (:or alphabetic "-" "'")))
          (token 'IDENT lexeme)]
+        [(:seq "@" alphabetic (:* (:or alphabetic "-")))
+         (token 'SECTION (string->symbol lexeme))]
         [(from/to "\"" "\"")
          (token 'STRING (substring lexeme 1 (sub1 (string-length lexeme))))]))
 
