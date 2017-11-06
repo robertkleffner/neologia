@@ -1,9 +1,13 @@
 #lang info
 (define collection "neologia")
 (define deps '("base"
-               "rackunit-lib"))
+               "rackunit-lib"
+               "brag"
+               "beautiful-racket"
+               "beautiful-racket-lib"
+               "br-parser-tools-lib"))
 (define build-deps '("scribble-lib" "racket-doc"))
 (define scribblings '(("scribblings/neologia.scrbl" ())))
-(define pkg-desc "Description Here")
-(define version "0.0")
-(define pkg-authors '(gamec))
+(define pkg-desc "A language for creating and managing dictionaries and lexicons")
+(define version "0.9")
+(define pkg-authors '(robkleffner))
