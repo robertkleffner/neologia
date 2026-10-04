@@ -1,6 +1,7 @@
 #lang info
 (define collection "neologia")
-(define deps '("base"
+(define deps '("beautiful-racket-macro"
+               "base"
                "rackunit-lib"
                "brag"
                "beautiful-racket"
